@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Editor</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="fontawesome-all.min.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+    		<ul class="nav navbar-nav navbar-right">
+      		<li><button type="button" class="btn btn-primary btn-block">_</button></li>
+      		<li><input type="button" value="" name="" class="btn btn-primary btn-block"></li> 
+    		<li><button type="button" class="btn btn-danger btn-block">X</button></li>
+    		</ul>
+  	</div>
+<nav class="bg-success">
+<div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><big>BAND</big></a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" id="cut">Cut</a></li>
+          <li><a href="#" id="cop">Copy</a></li>
+          <li><a href="#" id="del">Delete</a></li>
+          <li><a href="#" id="pas">Paste</a></li>
+          <li><a href="#" id="red">Redo</a></li>
+          <li><a href="#" id="und">Undo</a></li> 
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Paragraph
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" id="cen">Justify Center</a></li>
+          <li><a href="#" id="lef">Justify Left</a></li>
+          <li><a href="#" id="rig">Justify Right</a></li>
+          <li><a href="#" id="ful">Justify Full</a></li> 
+        </ul>
+      </li>
+      <li><a href="#">Help</a></li> 
+      <li><a href="#">View</a></li> 
+    </ul>
+  </div>
+<div class="container-fluid">
+<div class="collapse navbar-collapse">
+<ul type="none" class="nav navbar-nav">
+	<li><button type="button" class="btn btn-primary btn-sm" id="bold">B</button></li>
+	<li><button type="button" class="btn btn-primary btn-sm" id="ita">I</button></li>
+	<li><button type="button" class="btn btn-primary btn-sm" id="und">U</button></li>
+	<li>Text color<input type="color" style="height:30px" id="color" name="" data-toggle="tooltip" title="text color"></li>
+    <li>Background color<input type="color" value="#FFFFFF" style="height:30px" id="bgcol" name="" data-toggle="tooltip" title="background color"></li>
+    <li>Fontsize<select id="select" style="height:30px" name="3" data-toggle="tooltip" title="Fontsize">
+	<option>3</option>
+	<option>1</option>
+	<option>2</option>
+	<option>4</option>
+	<option>5</option>
+	<option>6</option>
+	<option>7</option>
+	</select></li>
+	<li>Font-type<select id="style" style="height:30px" name="3" data-toggle="tooltip" title="Font-style">
+	<option>Arial</option>
+	<option>Garamond</option>
+	<option>Times New Roman</option>
+	<option>Comic Sans MS</option>
+	<option>Georgia</option>
+	<option>Courier</option>
+	<option>Verdana</option>
+	<option>Trebuchet MS</option>
+	<option>Impact</option>
+	</select></li>
+</div>
+</div>
+</nav>   
+<br>
+<div>
+	<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+		<div id="area" style="height: 800px; width: 600px; border: 1px solid; margin-left: 200px" contenteditable="">
+			
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+<script>
+var count=0;
+var count1=0;
+var count2=0;
+	$(document).ready(function(){
+		$(window).on("load", function(){
+			$("#area").focus();
+		});
+	});
+			$('#bold').click(function(){if(count==0){
+				document.execCommand('bold',false,null);
+				$("#bold").html('<b>B</b>');
+				count++;	
+			}
+			else{
+				document.execCommand('bold',false,null);
+				$("#bold").html('B');
+				count--;
+			}
+			});	
+			$('#ita').click(function(){if(count1==0){
+				document.execCommand('italic',false,null);
+				$("#ita").html('<i>I</i>');
+				count1++;	
+			}
+			else{
+				document.execCommand('italic',false,null);
+				$("#ita").html('I');
+				count1--;
+			}	
+			});
+			$('#und').click(function(){if(count2==0){
+				document.execCommand('underline',false,null);
+				$("#und").html('<ins>U</ins>');
+				count2++;	
+			}
+			else{
+				document.execCommand('underline',false,null);
+				$("#und").html('U');
+				count2--;
+			}	
+			});
+		$("#color").change(function(){
+			var x= document.getElementById('color').value;
+			document.execCommand('foreColor',false,x);
+		});
+		$("#bgcol").change(function(){
+			var x= document.getElementById('bgcol').value;
+			$("#area").css("background-color",x);
+		});
+		$("#select").change(function(){
+			var x= document.getElementById('select').value;
+			document.execCommand('fontsize',false,x);
+		});
+		$("#style").change(function(){
+			var x= document.getElementById('style').value;
+			document.execCommand('fontName',false,x);
+		});
+		$('#cut').click(function(){
+				document.execCommand('cut',false,null);
+		});
+		$('#cop').click(function(){
+				document.execCommand('copy',false,null);
+		});
+		$('#del').click(function(){
+				document.execCommand('delete',false,null);
+		});
+		$('#pas').click(function(){
+				document.execCommand('paste',false,null);
+		});
+		$('#red').click(function(){
+				document.execCommand('redo',false,null);
+		});
+		$('#und').click(function(){
+				document.execCommand('undo',false,null);
+		});
+		$('#cen').click(function(){
+				document.execCommand('justifyCenter',false,null);
+		});
+		$('#lef').click(function(){
+				document.execCommand('justifyLeft',false,null);
+		});
+		$('#rig').click(function(){
+				document.execCommand('justifyRight',false,null);
+		});
+		$('#ful').click(function(){
+				document.execCommand('justifyFull',false,null);
+		});
+</script>
+</body>
+</html>
